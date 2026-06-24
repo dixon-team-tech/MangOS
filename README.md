@@ -27,7 +27,8 @@ Because the parallel display shield requires a direct, high-bandwidth physical b
 
 
 
-[Image of Arduino Mega pinout diagram]
+<img width="362" height="552" alt="image" src="https://github.com/user-attachments/assets/5f262e19-91f4-4de6-8d2e-0e8473c5c1cb" />
+
 
 
 ### 1. Supported Microcontrollers
