@@ -58,7 +58,7 @@ Because the parallel display shield requires a direct, high-bandwidth physical b
 
 If you are using a standard shield setup, press the 3.5" Screen Shield flat onto your Mega 2560 headers. Then, route your 4x4 matrix keypad directly into the remaining digital pin tracks using the map below:
 
-```text
+
   Keypad Row Pins    -->  Mega Digital Pins [23, 25, 27, 29]
   Keypad Column Pins -->  Mega Digital Pins [31, 33, 35, 37]
 
