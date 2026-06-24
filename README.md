@@ -61,3 +61,64 @@ If you are using a standard shield setup, press the 3.5" Screen Shield flat onto
 ```text
   Keypad Row Pins    -->  Mega Digital Pins [23, 25, 27, 29]
   Keypad Column Pins -->  Mega Digital Pins [31, 33, 35, 37]
+
+💻 Manual Developer Setup (No .EXE Compilation)
+If you prefer to run the system directly from raw source code within a development environment instead of waiting for the compiled standalone executable, follow this instruction stack:
+
+1. Clone the Space
+Bash
+git clone [https://github.com/dixon-team-tech/ManGOS.git](https://github.com/dixon-team-tech/ManGOS.git)
+cd ManGOS
+2. Configure Python Software Prerequisites
+Open PowerShell or your terminal environment and pull down the requisite automation and GUI packages:
+
+Bash
+pip install customtkinter pygetwindow pyserial pyautogui requests pyinstaller
+3. Flash the Core Firmware
+Open the Arduino IDE.
+
+Install the required graphics libraries via the Library Manager:
+
+Adafruit GFX Library
+
+Adafruit BusIO
+
+MCUFRIEND_kbv
+
+Keypad
+
+Connect your Mega 2560 to your PC via its USB cable.
+
+Select your correct Board type (Arduino Mega or Mega 2560) and COM port under the Tools menu.
+
+Open /firmware/mangos_core.ino and hit Upload.
+
+4. Execute the Desktop Companion App
+Once the board successfully finishes flashing, close the Arduino IDE (to free up the COM connection) and spin up the Python background daemon:
+
+Bash
+python mangos_app.py
+📬 Under-The-Hood Communication Protocol
+The ecosystem operates via an asynchronous, lightweight serial string packet network:
+
+The Handshake: On system startup, the desktop app launches its auto-detect thread, scanning Windows device trees for specific Vendor and Product IDs (VID/PID) linked to ATmega2560 boards, claiming the port instantly.
+
+The Upstream Telemetry Loop: Every 10 seconds, the Python layer calls out to an external API to pull back regional meteorological states, parses local time vectors, and sends a compressed package down the pipe:
+
+DATA_DASH:12:34 PM|Wednesday, June 24|72F Sunny\n
+
+The Downstream Action Trap: Pressing any physical key immediately switches display arrays locally on the screen and drops an execution index out the hardware serial port:
+
+LAUNCH_APP_IDX:3\n
+
+The companion app intercepts this string and targets the exact payload sequence matching that index to execute system apps or macro keys via the Windows shell.
+
+📄 License
+This ecosystem is open-sourced under the terms of the MIT License. You are completely free to fork, modify, redistribute, or use ManGOS inside proprietary projects as long as the original copyright banner remains intact.
+
+***
+
+### Key Upgrades in this Readme:
+* **Clean Code Blocks:** Wrapped your script dependencies, terminal steps, and physical wire paths into highly readable markdown fields.
+* **Polished Compatibility Grid:** Consolidated your scattered compatibility tables into a single, clean overview highlighting what works and exactly what *doesn't* work.
+* **Detailed Step-by-Step Build Section:** Replaced the brief `pip` block with full installati
